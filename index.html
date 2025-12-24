@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftRide Vehicle Rentals</title>
+    <meta name="description" content="SwiftRide offers affordable car, bike, scooter, and commercial vehicle rentals for daily, weekly, and monthly plans. Book your next ride today!">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://cdn.pixabay.com/photo/2017/02/01/10/47/car-2029869_960_720.png" type="image/png">
+    
+    <!-- CDN Resources -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style id="app-style">
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #004c99;
+            --secondary: #ff6600;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 10px 25px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+            padding: 10px 25px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e55c00;
+            border-color: #e55c00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3);
+        }
+        
+        .btn-outline-light {
+            border: 2px solid white;
+            color: white;
+            font-weight: 500;
+            padding: 10px 25px;
+            transition: var(--transition);
+        }
+        
+        .btn-outline-light:hover {
+            background-color: white;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://cdn.pixabay.com/photo/2016/11/22/23/44/porsche-1851246_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+        
+        .about-section .icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-card {
+            padding: 30px;
+            border-radius: 8px;
+            transition: var(--transition);
+            height: 100%;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        /* Vehicle Fleet Section */
+        .fleet-section {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .vehicle-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            height: 100%;
+            margin-bottom: 30px;
+        }
+        
+        .vehicle-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .vehicle-card img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .vehicle-info {
+            padding: 20px;
+        }
+        
+        .vehicle-info h4 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+        
+        .vehicle-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .vehicle-price {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Rental Plans */
+        .plans-section {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+        
+        .plan-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            height: 100%;
+            position: relative;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .plan-card h3 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .plan-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        .plan-price span {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 400;
+        }
+        
+        .plan-features {
+            margin-bottom: 25px;
+            padding-left: 0;
+            list-style-type: none;
+        }
+        
+        .plan-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .plan-popular {
+            position: absolute;
+            top: 0;
+            right: 30px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            border-radius: 0 0 15px 15px;
+        }
+        
+        /* Why Choose Us */
+        .why-us-section {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .why-us-item {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .why-us-icon {
+            background-color: rgba(0, 102, 204, 0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .why-us-icon i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        /* Testimonials */
+        .testimonial-section {
+            padding: 100px 0;
+            background-color: var(--light);
+            overflow: hidden;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin: 20px;
+            height: auto;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 20px;
+            font-style: italic;
+            color: #555;
+        }
+        
+        .testimonial-rating {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .author-details h5 {
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+        
+        .author-details p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: #666;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .step {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+        
+        .step-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+        
+        .contact-info {
+            margin-bottom: 40px;
+        }
+        
+        .contact-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 0;
+        }
+        
+        .footer-links h5 {
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-links ul {
+            padding-left: 0;
+            list-style-type: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 40px;
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* Sticky Book Button */
+        .sticky-book-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            display: none;
+        }
+        
+        /* Vehicle Category Tabs */
+        .vehicle-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .vehicle-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 30px;
+            margin: 5px;
+            font-weight: 500;
+            transition: var(--transition);
+            background-color: #f1f1f1;
+        }
+        
+        .vehicle-tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .vehicle-tab:hover:not(.active) {
+            background-color: #e1e1e1;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 991px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .vehicle-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 10px;
+            }
+            
+            .vehicle-tab {
+                flex: 0 0 auto;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-heading {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Animation Classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-up.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Common section styling */
+        .section-heading {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            font-weight: 700;
+        }
+        
+        .section-heading::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 4px;
+            background-color: var(--primary);
+            margin: 15px 0 30px;
+        }
+        
+        .section-heading.text-center::after {
+            margin: 15px auto 30px;
+        }
+        
+        .section-subheading {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 50px;
+            max-width: 800px;
+        }
+        
+        .text-center .section-subheading {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="javascript:void(0)">
+                <span class="fw-bold text-primary">Swift</span><span class="text-secondary">Ride</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#vehicles">Vehicles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#plans">Rental Plans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#why-us">Why Choose Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+                <button class="btn btn-primary ms-lg-3" data-bs-toggle="modal" data-bs-target="#bookingModal">Book Now</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 hero-content">
+                    <h1 data-aos="fade-up" data-aos-delay="100">Reliable Vehicles. Flexible Rentals. Drive Your Way.</h1>
+                    <p data-aos="fade-up" data-aos-delay="200">Experience affordable, convenient and safe vehicle rentals for all your needs. From daily commutes to long road trips, we've got you covered.</p>
+                    <div data-aos="fade-up" data-aos-delay="300">
+                        <button class="btn btn-primary me-3 mb-3 mb-md-0" data-bs-toggle="modal" data-bs-target="#bookingModal">Book Now</button>
+                        <a href="#vehicles" class="btn btn-outline-light">View Vehicles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-heading text-center">About SwiftRide</h2>
+                    <p class="section-subheading text-center">
+                        SwiftRide Vehicle Rentals provides a wide range of well-maintained vehicles for all your transportation needs. 
+                        Whether you're a tourist exploring the city, a professional needing a car for business, 
+                        or just looking for a reliable ride, we've got you covered with flexible rental options.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="about-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="icon">
+                            <i class="fas fa-car-side"></i>
+                        </div>
+                        <h4>Well-Maintained Vehicles</h4>
+                        <p>Our fleet undergoes regular maintenance checks to ensure safety and reliability on every journey.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="about-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h4>Affordable Pricing</h4>
+                        <p>Competitive rates with transparent pricing. No hidden fees or unexpected charges.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="about-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4>Easy Booking Process</h4>
+                        <p>Book your vehicle in minutes through our simple and intuitive booking platform.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="about-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4>24/7 Customer Support</h4>
+                        <p>Our dedicated team is available round the clock to assist you with any queries.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Vehicles / Fleet Section -->
+    <section class="fleet-section" id="vehicles">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-heading text-center">Our Vehicle Fleet</h2>
+                    <p class="section-subheading text-center">
+                        Choose from our extensive range of well-maintained vehicles to suit your needs.
+                        From compact cars to luxury vehicles, we have the perfect option for every journey.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="vehicle-tabs">
+                <div class="vehicle-tab active" data-tab="cars">Cars</div>
+                <div class="vehicle-tab" data-tab="bikes">Bikes & Scooters</div>
+                <div class="vehicle-tab" data-tab="luxury">Luxury Vehicles</div>
+                <div class="vehicle-tab" data-tab="commercial">Commercial Vehicles</div>
+            </div>
+            
+            <!-- Cars Tab -->
+            <div class="tab-content active" id="cars-content">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="vehicle-card" data-aos="fade-up">
+                            <img src="https://cdn.pixabay.com/photo/2016/02/13/13/11/cuba-1197800_1280.jpg" alt="Compact Car">
+                            <div class="vehicle-info">
+                                <h4>Compact Hatchback</h4>
+                                <p>Perfect for city driving with excellent fuel efficiency</p>
+                                <div class="vehicle-price">From $35/day</div>
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Select & Book</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="vehicle-card" data-aos="fade-up" data-aos-delay="100">
+                            <img src="https://cdn.pixabay.com/photo/2015/01/19/13/51/car-604019_1280.jpg" alt="Sedan">
+                            <div class="vehicle-info">
+                                <h4>Comfortable Sedan</h4>
+                                <p>Spacious and comfortable for longer journeys</p>
+                                <div class="vehicle-price">From $45/day</div>
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Select & Book</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="vehicle-card" data-aos="fade-up" data-aos-delay="200">
+                            <img src="https://cdn.pixabay.com/photo/2019/07/07/14/03/fiat-4322521_1280.jpg" alt="SUV">
+                            <div class="vehicle-info">
+                                <h4>Family SUV</h4>
+                                <p>Spacious interior and high seating for family trips</p>
+                                <div class="vehicle-price">From $65/day</div>
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Select & Book</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bikes & Scooters Tab -->
+            <div class="tab-content" id="bikes-content">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="vehicle-card">
+                            <img src="https://cdn.pixabay.com/photo/2018/08/18/03/35/motorcycle-3613519_1280.jpg" alt="Sport Bike">
+                            <div class="vehicle-info">
+                                <h4>Sport Bike</h4>
+                                <p>Powerful bike for adventure enthusiasts</p>
+                                <div class="vehicle-price">From $25/day</div>
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Select & Book</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="vehicle-card">
+                            <img src="https://cdn.pixabay.com/photo/2016/01/19/16/46/motorcycle-1149389_1280.jpg" alt="Cruiser Bike">
+                            <div class="vehicle-info">
+                                <h4>Cruiser Bike</h4>
+                                <p>Comfortable for long rides and touring</p>
+                                <div class="vehicle-price">From $30/day</div>
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Select & Book</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="vehicle-card">
+                            <img src="https://cdn.pixabay.com/photo/2019/09/23/08/01/scooter-4497629_1280.jpg" alt="City Scooter">
+                            <div class="vehicle-info">
+                                <h4>City Scooter</h4>
+                                <p>Efficient transportation for city commuting</p>
+                                <div class="vehicle-price">From $15/day</div>
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Select & Book</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Luxury Vehicles Tab -->
+            <div class="tab-content" id="luxury-content">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="vehicle-card">
+                            <img src="https://cdn.pixabay.com/photo/2017/03/27/14/56/auto-2179220_1280.jpg" alt="Luxury Sedan">
+                            <div class="vehicle-info">
+                                <h4>Luxury Sedan</h4>
+                                <p>Premium comfort and sophisticated features</p>
+                                <div class="vehicle-price">From $95/day</div>
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Select & Book</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="vehicle-card">
+                            <img src="https://cdn.pixabay.com/photo/2019/12/26/20/50/audi-r8-4721217_1280.jpg" alt="Sports Car">
+                            <div class="vehicle-info">
+                                <h4>Sports Car</h4>
+                                <p>Exhilarating driving experience for special occasions</p>
+                                <div class="vehicle-price">From $150/day</div>
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Select & Book</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="vehicle-card">
+                            <img src="https://cdn.pixabay.com/photo/2020/03/24/20/59/car-4965498_1280.jpg" alt="Premium SUV">
+                            <div class="vehicle-info">
+                                <h4>Premium SUV</h4>
+                                <p>Luxury and space combined for ultimate comfort</p>
+                                <div class="vehicle-price">From $120/day</div>
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Select & Book</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Commercial Vehicles Tab -->
+            <div class="tab-content" id="commercial-content">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="vehicle-card">
+                            <img src="https://cdn.pixabay.com/photo/2018/02/25/22/05/delivery-3182049_1280.jpg" alt="Cargo Van">
+                            <div class="vehicle-info">
+                                <h4>Cargo Van</h4>
+                                <p>Spacious van for moving goods and equipment</p>
+                                <div class="vehicle-price">From $75/day</div>
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Select & Book</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="vehicle-card">
+                            <img src="https://cdn.pixabay.com/photo/2020/05/10/05/14/van-5152632_1280.jpg" alt="Passenger Van">
+                            <div class="vehicle-info">
+                                <h4>Passenger Van</h4>
+                                <p>Comfortable transport for groups up to 12 people</p>
+                                <div class="vehicle-price">From $85/day</div>
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Select & Book</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="vehicle-card">
+                            <img src="https://cdn.pixabay.com/photo/2015/05/28/23/12/pickup-truck-788643_1280.jpg" alt="Pickup Truck">
+                            <div class="vehicle-info">
+                                <h4>Pickup Truck</h4>
+                                <p>Versatile vehicle for both work and leisure</p>
+                                <div class="vehicle-price">From $70/day</div>
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Select & Book</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rental Plans Section -->
+    <section class="plans-section" id="plans">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-heading text-center">Rental Plans</h2>
+                    <p class="section-subheading text-center">
+                        Choose the plan that suits your needs. Whether it's a day trip or a month-long adventure,
+                        we have flexible rental options for every requirement.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="plan-card" data-aos="fade-up">
+                        <h3>Daily Rentals</h3>
+                        <div class="plan-price">From $35 <span>/day</span></div>
+                        <ul class="plan-features">
+                            <li>24-hour rental period</li>
+                            <li>Unlimited mileage</li>
+                            <li>Roadside assistance</li>
+                            <li>Insurance options available</li>
+                            <li>Flexible pickup & return</li>
+                        </ul>
+                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Choose Plan</button>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="plan-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="plan-popular">Most Popular</div>
+                        <h3>Weekly Rentals</h3>
+                        <div class="plan-price">From $180 <span>/week</span></div>
+                        <ul class="plan-features">
+                            <li>7-day rental period</li>
+                            <li>Unlimited mileage</li>
+                            <li>Roadside assistance</li>
+                            <li>Basic insurance included</li>
+                            <li>Free additional driver</li>
+                            <li>15% off daily rate</li>
+                        </ul>
+                        <button class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Choose Plan</button>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="plan-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3>Monthly Rentals</h3>
+                        <div class="plan-price">From $600 <span>/month</span></div>
+                        <ul class="plan-features">
+                            <li>30-day rental period</li>
+                            <li>Unlimited mileage</li>
+                            <li>Roadside assistance</li>
+                            <li>Comprehensive insurance</li>
+                            <li>Free maintenance</li>
+                            <li>Free delivery & pickup</li>
+                            <li>25% off daily rate</li>
+                        </ul>
+                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">Choose Plan</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="p-4 bg-white rounded shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                        <h4 class="mb-3 text-primary">Corporate & Long-Term Plans</h4>
+                        <p>Looking for business fleet solutions or long-term rentals? We offer customized plans for businesses and individuals with special requirements.</p>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactModal">Request Custom Quote</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-us-section" id="why-us">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h2 class="section-heading">Why Choose SwiftRide</h2>
+                    <p class="section-subheading">
+                        We strive to provide the best vehicle rental experience through quality service,
+                        transparency, and customer satisfaction.
+                    </p>
+                    
+                    <div class="why-us-item fade-up">
+                        <div class="why-us-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div>
+                            <h5>Wide Range of Vehicles</h5>
+                            <p>From compact cars to luxury vehicles, find the perfect ride for every occasion.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="why-us-item fade-up">
+                        <div class="why-us-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div>
+                            <h5>Transparent Pricing</h5>
+                            <p>No hidden fees or unexpected charges. Our pricing is clear and upfront.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="why-us-item fade-up">
+                        <div class="why-us-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <div>
+                            <h5>Easy Booking Process</h5>
+                            <p>Our streamlined booking system makes renting a vehicle quick and hassle-free.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="why-us-item fade-up">
+                        <div class="why-us-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div>
+                            <h5>Regular Maintenance</h5>
+                            <p>All our vehicles undergo strict maintenance checks for your safety and comfort.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="why-us-item fade-up">
+                        <div class="why-us-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div>
+                            <h5>Trusted by Customers</h5>
+                            <p>Join thousands of satisfied customers who choose us for their rental needs.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6" data-aos="fade-left">
+                    <img src="https://cdn.pixabay.com/photo/2016/11/22/20/02/car-1850535_1280.jpg" alt="Happy customer with rental car" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonial-section" id="testimonials">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-heading text-center">What Our Customers Say</h2>
+                    <p class="section-subheading text-center">
+                        Don't just take our word for it. See what our customers have to say about their experience with SwiftRide.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="swiper testimonial-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-content">
+                                "SwiftRide made our family vacation so convenient! The SUV was clean, comfortable, and perfect for our road trip. The booking process was quick, and customer service was excellent!"
+                            </p>
+                            <div class="testimonial-author">
+                                <img src="https://cdn.pixabay.com/photo/2017/08/06/12/06/people-2591874_1280.jpg" alt="Customer">
+                                <div class="author-details">
+                                    <h5>Sarah Johnson</h5>
+                                    <p>Family Traveler</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-content">
+                                "As a business traveler, I need reliable transportation. SwiftRide has been my go-to rental service for over a year now. Their vehicles are always in excellent condition, and their customer service is unmatched!"
+                            </p>
+                            <div class="testimonial-author">
+                                <img src="https://cdn.pixabay.com/photo/2017/11/02/14/27/model-2911332_1280.jpg" alt="Customer">
+                                <div class="author-details">
+                                    <h5>David Martinez</h5>
+                                    <p>Business Professional</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p class="testimonial-content">
+                                "Rented a bike for weekend exploration of the city. The process was seamless, and the bike was in perfect condition. Will definitely use SwiftRide again for my next adventure!"
+                            </p>
+                            <div class="testimonial-author">
+                                <img src="https://cdn.pixabay.com/photo/2019/11/03/20/11/portrait-4599553_1280.jpg" alt="Customer">
+                                <div class="author-details">
+                                    <h5>Emily Chen</h5>
+                                    <p>Adventure Enthusiast</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-content">
+                                "I needed a van for our office relocation, and SwiftRide had exactly what we needed. The vehicle was spacious, easy to drive, and very well-maintained. Their staff was helpful throughout the process!"
+                            </p>
+                            <div class="testimonial-author">
+                                <img src="https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg" alt="Customer">
+                                <div class="author-details">
+                                    <h5>Michael Thompson</h5>
+                                    <p>Small Business Owner</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-heading text-center">How It Works</h2>
+                    <p class="section-subheading text-center">
+                        Renting a vehicle with SwiftRide is quick and easy. Just follow these simple steps
+                        and you'll be on the road in no time.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="step" data-aos="fade-up">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <i class="fas fa-car-side"></i>
+                        </div>
+                        <h4>Choose Your Vehicle</h4>
+                        <p>Browse our extensive fleet and select the perfect vehicle for your needs.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="step" data-aos="fade-up" data-aos-delay="100">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h4>Book Online</h4>
+                        <p>Fill in your details, select dates, and confirm your booking in minutes.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="step" data-aos="fade-up" data-aos-delay="200">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4>Pick Up & Go</h4>
+                        <p>Collect your vehicle from our convenient locations and hit the road!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#bookingModal">Start Booking Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h2 class="section-heading">Contact Us</h2>
+                    <p class="section-subheading">
+                        Have questions or need assistance? Our team is here to help you with anything you need.
+                    </p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h5>Our Location</h5>
+                                <p>123 Rental Street, Cityville, State 12345</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h5>Phone Number</h5>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h5>Email Address</h5>
+                                <p>info@swiftride.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h5>Working Hours</h5>
+                                <p>Monday - Saturday: 8:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links mt-4">
+                        <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
+                        <a href="javascript:void(0)"><i class="fab fa-twitter"></i></a>
+                        <a href="javascript:void(0)"><i class="fab fa-instagram"></i></a>
+                        <a href="javascript:void(0)"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        <h4 class="mb-4">Send Us a Message</h4>
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" placeholder="Message Subject">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="Your Message" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="bg-white p-4 rounded shadow-sm text-center">
+                        <h4 class="mb-3">Find Us</h4>
+                        <div class="ratio ratio-16x9">
+                            <!-- Map iframe (replaced with an image for iframe prototype) -->
+                            <img src="https://cdn.pixabay.com/photo/2015/09/02/12/25/map-918470_1280.jpg" alt="Location Map" class="img-fluid rounded">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5 class="mb-3">SwiftRide Vehicle Rentals</h5>
+                    <p>Providing reliable, flexible and affordable vehicle rental solutions since 2015. Your journey, your way.</p>
+                    <div class="social-links">
+                        <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
+                        <a href="javascript:void(0)"><i class="fab fa-twitter"></i></a>
+                        <a href="javascript:void(0)"><i class="fab fa-instagram"></i></a>
+                        <a href="javascript:void(0)"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 col-6 mb-4 footer-links">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#vehicles">Our Vehicles</a></li>
+                        <li><a href="#plans">Rental Plans</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 col-6 mb-4 footer-links">
+                    <h5>Our Services</h5>
+                    <ul>
+                        <li><a href="javascript:void(0)">Car Rentals</a></li>
+                        <li><a href="javascript:void(0)">Bike Rentals</a></li>
+                        <li><a href="javascript:void(0)">Luxury Vehicles</a></li>
+                        <li><a href="javascript:void(0)">Commercial Rentals</a></li>
+                        <li><a href="javascript:void(0)">Long-term Leasing</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 col-md-4 mb-4 footer-links">
+                    <h5>Contact Information</h5>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Rental Street, Cityville, State 12345</li>
+                        <li><i class="fas fa-phone-alt me-2"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@swiftride.com</li>
+                        <li><i class="fas fa-clock me-2"></i> Mon-Sat: 8:00 AM - 8:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        &copy; 2025 SwiftRide Vehicle Rentals. All Rights Reserved.
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <a href="javascript:void(0)" class="text-white-50 me-3">Terms of Service</a>
+                        <a href="javascript:void(0)" class="text-white-50">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky Book Now Button -->
+    <div class="sticky-book-btn">
+        <button class="btn btn-primary btn-lg shadow" data-bs-toggle="modal" data-bs-target="#bookingModal">
+            <i class="fas fa-calendar-check me-2"></i>Book Now
+        </button>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bookingModalLabel">Book Your Vehicle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="bookingForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="bookingName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="bookingName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="bookingEmail" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="bookingEmail" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="bookingPhone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="bookingPhone" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="vehicleType" class="form-label">Vehicle Type</label>
+                                <select class="form-select" id="vehicleType" required>
+                                    <option value="">Select Vehicle Type</option>
+                                    <option value="compact">Compact Car</option>
+                                    <option value="sedan">Sedan</option>
+                                    <option value="suv">SUV</option>
+                                    <option value="luxury">Luxury Car</option>
+                                    <option value="sport">Sports Car</option>
+                                    <option value="bike">Motorcycle</option>
+                                    <option value="scooter">Scooter</option>
+                                    <option value="van">Van</option>
+                                    <option value="truck">Pickup Truck</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="pickupDate" class="form-label">Pickup Date</label>
+                                <input type="date" class="form-control" id="pickupDate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="returnDate" class="form-label">Return Date</label>
+                                <input type="date" class="form-control" id="returnDate" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="pickupLocation" class="form-label">Pickup Location</label>
+                                <select class="form-select" id="pickupLocation" required>
+                                    <option value="">Select Location</option>
+                                    <option value="main">Main Office - Downtown</option>
+                                    <option value="airport">Airport Terminal</option>
+                                    <option value="north">North Branch</option>
+                                    <option value="south">South Branch</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="returnLocation" class="form-label">Return Location</label>
+                                <select class="form-select" id="returnLocation" required>
+                                    <option value="">Select Location</option>
+                                    <option value="main">Main Office - Downtown</option>
+                                    <option value="airport">Airport Terminal</option>
+                                    <option value="north">North Branch</option>
+                                    <option value="south">South Branch</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="additionalRequests" class="form-label">Additional Requests</label>
+                            <textarea class="form-control" id="additionalRequests" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                            <label class="form-check-label" for="termsCheck">
+                                I agree to the <a href="javascript:void(0)">terms and conditions</a> and <a href="javascript:void(0)">privacy policy</a>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submitBooking">Confirm Booking</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel">Request Custom Quote</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="quoteForm">
+                        <div class="mb-3">
+                            <label for="quoteName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="quoteName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quoteEmail" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="quoteEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quotePhone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="quotePhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quoteType" class="form-label">Quote Type</label>
+                            <select class="form-select" id="quoteType" required>
+                                <option value="">Select Quote Type</option>
+                                <option value="corporate">Corporate Fleet</option>
+                                <option value="longterm">Long-Term Personal</option>
+                                <option value="event">Event Transportation</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quoteDetails" class="form-label">Details</label>
+                            <textarea class="form-control" id="quoteDetails" rows="4" placeholder="Please provide details about your requirements" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submitQuote">Submit Request</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="confirmationModalLabel">
+                        <i class="fas fa-check-circle me-2"></i>Success
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4 class="mb-3">Thank You!</h4>
+                    <p id="confirmationMessage">Your request has been received successfully. We will get back to you shortly.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    
+    <script id="app-script">
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+        
+        // Initialize Swiper for testimonials
+        const testimonialSwiper = new Swiper('.testimonial-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+            }
+        });
+        
+        // Vehicle tabs functionality
+        const vehicleTabs = document.querySelectorAll('.vehicle-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        vehicleTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and contents
+                vehicleTabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to current tab and content
+                tab.classList.add('active');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+        
+        // Sticky book now button
+        window.addEventListener('scroll', () => {
+            const stickyBtn = document.querySelector('.sticky-book-btn');
+            if (window.scrollY > 600) {
+                stickyBtn.style.display = 'block';
+            } else {
+                stickyBtn.style.display = 'none';
+            }
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId !== "#") {
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Form submissions
+        document.getElementById('submitBooking').addEventListener('click', function(e) {
+            e.preventDefault();
+            const form = document.getElementById('bookingForm');
+            const formData = new FormData(form);
+            
+            // Validation would go here in a real implementation
+            
+            // Show confirmation modal
+            const confirmModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            document.getElementById('confirmationMessage').textContent = "Your booking has been received! We'll confirm your reservation shortly. Thank you for choosing SwiftRide.";
+            confirmModal.show();
+            
+            // Close booking modal
+            const bookingModal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
+            bookingModal.hide();
+        });
+        
+        document.getElementById('submitQuote').addEventListener('click', function(e) {
+            e.preventDefault();
+            const form = document.getElementById('quoteForm');
+            const formData = new FormData(form);
+            
+            // Show confirmation modal
+            const confirmModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            document.getElementById('confirmationMessage').textContent = "Your custom quote request has been received. Our team will prepare a personalized offer for you soon!";
+            confirmModal.show();
+            
+            // Close contact modal
+            const contactModal = bootstrap.Modal.getInstance(document.getElementById('contactModal'));
+            contactModal.hide();
+        });
+        
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show confirmation modal
+            const confirmModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            document.getElementById('confirmationMessage').textContent = "Thank you for your message! We will get back to you as soon as possible.";
+            confirmModal.show();
+            
+            // Reset the form
+            this.reset();
+        });
+        
+        // Animation for Why Choose Us section
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        fadeElements.forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Set minimum date for booking form
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('pickupDate').setAttribute('min', today);
+        document.getElementById('returnDate').setAttribute('min', today);
+        
+        // Ensure return date is after pickup date
+        document.getElementById('pickupDate').addEventListener('change', function() {
+            const returnDateInput = document.getElementById('returnDate');
+            returnDateInput.setAttribute('min', this.value);
+            
+            // If current return date is before new pickup date, update it
+            if (returnDateInput.value < this.value) {
+                returnDateInput.value = this.value;
+            }
+        });
+    </script>
+</body>
+</html>
